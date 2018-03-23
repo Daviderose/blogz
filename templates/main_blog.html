@@ -2,31 +2,37 @@
 
 {% block content %}  
   
-<h1>Get It Done!</h1>
+<h1>Post A New Blog</h1>
     <form method="POST">
-        <label>
-            New Task:
-            <input type="text" name="task" />
-        </label>
-        <input type="submit" value="Add Task" />
+        <div>
+            <label>
+                Blog Title:
+            </label>
+        </div>
+        <input type="text" name="blog_title" />
+        <div>
+            <label>
+                Blog Text:
+            </label>
+        </div>
+        <textarea rows="4" cols="50" name="blog_text"></textarea>
+        <div>
+            <input type="submit" value="Post Blog" name="blog_post" />
+        </div>
     </form>
 
     <hr />
 
-    {% if tasks|length == 0 %}
-    <p>No tasks yet</p>
+    {% if blogs|length == 0 %}
+    <p>No Blogs yet</p>
     {% else %}
 
-        <ul>
-            {% for task in tasks %}
-            <li>{{task.name}}
-                <form method="POST" action="/delete-task" style="display:inline-block;">
-                    <input type="hidden" name="task-id" value="{{task.id}}" />
-                    <input type="submit" value="Done!" />
-                </form>
-            </li>
+        
+            {% for blog in blogs %}
+            <h1>{{blog.title}}</h1>
+            <p>{{blog.body}}</p>
             {% endfor %}
-        </ul>
+        
 
     {% endif %}
 

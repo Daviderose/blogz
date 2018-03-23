@@ -3,38 +3,38 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://get-it-done:beproductive@localhost:8889/get-it-done'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:buildablog@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'y337kGcys@zP3BQX'
 
-class Task(db.Model):
+
+class Blog(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(120))
-	completed = db.Column(db.Boolean)
-	owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	title = db.Column(db.String(120))
+	body = db.Column(db.String(800))
 
-	def __init__(self, name, owner):
-		self.name = name
-		self.completed = False
-		self.owner = owner
+	def __init__(self, title, body):
+		self.title = title
+		self.body = body
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-
-	owner = User.query.filter_by(email = session['email']).first()
 	
+	'''
+	owner = User.query.filter_by(email = session['email']).first()
+	'''
 	if request.method == 'POST':
-		task_name = request.form['task']
-		new_task = Task(task_name, owner)
-		db.session.add(new_task)
-		db.session.commit()
+		blog_title = request.form['blog_title']
+		blog_text = request.form['blog_text']
+		new_blog = Blog(blog_title, blog_text) 
+		db.session.add(new_blog)
+		db.session.commit() 
 
-	tasks = Task.query.filter_by(completed=False, owner=owner).all()
-	completed_tasks = Task.query.filter_by(completed=True, owner=owner).all()
-	return render_template('todos.html', title="Get It Done!", 
-		tasks=tasks, completed_tasks=completed_tasks)
+	blogs = Blog.query.all()
+	'''completed_tasks = Task.query.filter_by(completed=True, owner=owner).all()'''
+	return render_template('main_blog.html', title="Main Blog", blogs=blogs)
 
 if __name__ == '__main__':
 	app.run()
