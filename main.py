@@ -21,6 +21,11 @@ class Blog(db.Model):
 
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
+
+	if request.args.get('id'):
+		blog_id = request.args.get('id')
+		blog = Blog.query.get(blog_id)
+		return render_template('blog_details.html', title="Blog Details", blog=blog)
 	
 	'''
 	owner = User.query.filter_by(email = session['email']).first()
@@ -50,12 +55,18 @@ def new_post():
 			new_post = Blog(blog_title, blog_text) 
 			db.session.add(new_post)
 			db.session.commit()
-			return redirect('/blog')
+			blog_id = str(new_post.id)
+			return redirect('/blog?id=' + blog_id)
 		else:
 			return render_template('new_post.html', empty_title_error=empty_title_error, empty_text_error=empty_text_error, 
 				blog_title=blog_title, blog_text=blog_text )
 
 	return render_template('new_post.html', title="Add A Blog Entry")
+
+'''@app.route('/blog?id={{blog.id}}', methods=['GET'])
+def check_post():
+	
+	return render_template('blog_details.html', title="Blog Details",)'''
 
 if __name__ == '__main__':
 	app.run()
