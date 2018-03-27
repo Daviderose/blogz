@@ -2,26 +2,7 @@
 
 {% block content %}  
   
-<h1>Post A New Blog</h1>
-    <form method="POST">
-        <div>
-            <label>
-                Blog Title:
-            </label>
-        </div>
-        <input type="text" name="blog_title" />
-        <div>
-            <label>
-                Blog Text:
-            </label>
-        </div>
-        <textarea rows="4" cols="50" name="blog_text"></textarea>
-        <div>
-            <input type="submit" value="Post Blog" name="blog_post" />
-        </div>
-    </form>
-
-    <hr />
+<h1>Build a Blog</h1>
 
     {% if blogs|length == 0 %}
     <p>No Blogs yet</p>
@@ -31,6 +12,7 @@
             {% for blog in blogs %}
             <h1>{{blog.title}}</h1>
             <p>{{blog.body}}</p>
+            <hr />
             {% endfor %}
         
 
