@@ -6,8 +6,21 @@
     </head>    
 <body>
 
-    <a href='/blog'>Main Blog Page</a>
-    <a href='/newpost'>Add A Blog Entry</a>
+    <a href="/">Home</a>
+    <a href="/blog">Main Blog Page</a>
+    <a href="/newpost">Add A Blog Entry</a>
+    <div>
+        <a href="/login">login</a>
+        <a href="/logout">log out</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    <ul>
+    {% for category,message in messages %}
+        <li class="{{category}}">{{message}}</li>
+    {% endfor %}
+    </ul>
+    {% endwith %}
 
     {% block content %}
     {% endblock %}
