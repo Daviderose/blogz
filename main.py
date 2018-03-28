@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,10 +15,12 @@ class Blog(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(120))
 	body = db.Column(db.String(800))
+	pub_date = db.Column(db.DateTime)
 
-	def __init__(self, title, body):
+	def __init__(self, title, body, pub_date):
 		self.title = title
 		self.body = body
+		self.pub_date = pub_date
 
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
@@ -31,7 +34,7 @@ def index():
 	owner = User.query.filter_by(email = session['email']).first()
 	'''
 
-	blogs = Blog.query.all()
+	blogs = Blog.query.order_by("pub_date desc")
 	'''completed_tasks = Task.query.filter_by(completed=True, owner=owner).all()'''
 	return render_template('main_blog.html', title="Build A Blog", blogs=blogs)
 
@@ -41,6 +44,7 @@ def new_post():
 	if request.method == 'POST':
 		blog_title = request.form['blog_title']
 		blog_text = request.form['blog_text']
+		pub_date = datetime.utcnow()
 
 		empty_title_error = 'Please fill out the title'
 		empty_text_error = 'Please fill out the body'
@@ -52,7 +56,7 @@ def new_post():
 			empty_text_error = ''
 
 		if not empty_title_error and not empty_text_error:
-			new_post = Blog(blog_title, blog_text) 
+			new_post = Blog(blog_title, blog_text, pub_date) 
 			db.session.add(new_post)
 			db.session.commit()
 			blog_id = str(new_post.id)
