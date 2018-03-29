@@ -3,8 +3,8 @@
 {% block content %}    
 <h1>Your Fellow Bloggers</h1>
 
-{% for user in users %}
-<h2><a href='/blog?user={{user.id}}' >{{user.username}}</a></h2>
+{% for user in users.items %}
+<h2><a href='/blog/1?user={{user.id}}' >{{user.username}}</a></h2>
 {% endfor %}
 
 {% endblock %}

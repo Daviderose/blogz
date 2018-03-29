@@ -6,6 +6,6 @@
 
 <p>{{blog.body}}</p>
 
-<p class="post_author" >Written by <a href='/blog?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
+<p class="post_author" >Written by <a href='/blog/{{blogs.page}}?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
 
 {% endblock %}

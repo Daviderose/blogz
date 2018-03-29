@@ -5,12 +5,20 @@
 <h1>Blogz</h1>
 
   
-            {% for blog in blogs %}
-            <h2><a href='/blog?id={{blog.id}}' >{{blog.title}}</a></h2>
+            {% for blog in blogs.items %}
+            <h2><a href='/blog/{{blogs.page}}?id={{blog.id}}' >{{blog.title}}</a></h2>
             <p>{{blog.body}}</p>
-            <p class="post_author" >Written by <a href='/blog?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
+            <p class="post_author" >Written by <a href='/blog/{{blogs.page}}?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
             <hr />
             {% endfor %}
+
+            {% for page in blogs.iter_pages() %}
+                {% if page %}
+                <a href="{{ url_for('blog_list', page_num=page)}}">{{ page }}</a>
+                {% else %}
+                ...
+                {% endif %}
+            {% endfor%}
     
 
 {% endblock %}

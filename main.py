@@ -45,28 +45,29 @@ def require_login():
 
 @app.route('/', methods=['GET'])
 def index():
-	users = User.query.order_by("username")
+	users = User.query.order_by("username").paginate(per_page=20)
 	return render_template('index.html', users=users)
 
-@app.route('/blog', methods=['POST', 'GET'])
-def blog_list():
+@app.route('/blog/<int:page_num>', methods=['POST', 'GET'])
+def blog_list(page_num):
+
+	blogs = Blog.query.order_by("pub_date desc").paginate(per_page=5, page=page_num)
 
 	if request.args.get('id'):
 		blog_id = request.args.get('id')
 		blog = Blog.query.get(blog_id)
-		return render_template('blog_details.html', title="Blog Details", blog=blog)
+		return render_template('blog_details.html', title="Blog Details", blog=blog, blogs=blogs)
 
 	if request.args.get('user'):
 		user = request.args.get('user')
 		username = User.query.get(user)
-		blogs = Blog.query.filter_by(owner_id=user)
-		return render_template('user_details.html', title="User Details", username=username, blogs=blogs)
+		user_blogs = Blog.query.filter_by(owner_id=user)
+		return render_template('user_details.html', title="User Details", username=username, user_blogs=user_blogs)
 	
 	'''
 	owner = User.query.filter_by(email = session['email']).first()
 	'''
 
-	blogs = Blog.query.order_by("pub_date desc")
 	'''completed_tasks = Task.query.filter_by(completed=True, owner=owner).all()'''
 	return render_template('main_blog.html', title="Blogz", blogs=blogs,)
 
