@@ -8,6 +8,7 @@
             {% for blog in blogs %}
             <h2><a href='/blog?id={{blog.id}}' >{{blog.title}}</a></h2>
             <p>{{blog.body}}</p>
+            <p class="post_author" >Written by <a href='/blog?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
             <hr />
             {% endfor %}
     

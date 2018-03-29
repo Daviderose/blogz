@@ -39,7 +39,7 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup', 'blog', 'index']
+    allowed_routes = ['login', 'signup', 'blog_list', 'index', 'static']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
@@ -49,7 +49,7 @@ def index():
 	return render_template('index.html', users=users)
 
 @app.route('/blog', methods=['POST', 'GET'])
-def show_blogs():
+def blog_list():
 
 	if request.args.get('id'):
 		blog_id = request.args.get('id')
@@ -68,7 +68,7 @@ def show_blogs():
 
 	blogs = Blog.query.order_by("pub_date desc")
 	'''completed_tasks = Task.query.filter_by(completed=True, owner=owner).all()'''
-	return render_template('main_blog.html', title="Build A Blog", blogs=blogs)
+	return render_template('main_blog.html', title="Blogz", blogs=blogs,)
 
 @app.route('/login', methods=['POST','GET'])
 def login():
