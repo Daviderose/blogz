@@ -2,24 +2,24 @@
 
 {% block content %}    
 <h1>Sign in and start blogging!</h1>
+<div class="d-flex justify-content-center align-items-center container ">
+<div class="form-group" id="form-style">
 <p>Don't have an account? <a href="/signup">Create</a> one here.</p>
 <form action="/login" method="POST">
-    <table>
-        <tr>
-            <td>
-                <label>Username
-                    <input type="text" name="username" placeholder="johndoe@email.com" value="{{username}}" />
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Password
-                    <input type="password" name="password" placeholder="3-20 characters" />
-                </label>
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Sign In" />
+    <div>
+    <div>
+        <label>Username
+            <input class="form-control" type="text" name="username" placeholder="3-20 characters" value="{{username}}" />
+        </label>
+    </div>
+    <div>
+        <label>Password
+            <input class="form-control" type="password" name="password" placeholder="3-20 characters" />
+        </label>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-info">Sign-In</button>
 </form>
+</div>
+</div>
 {% endblock %}

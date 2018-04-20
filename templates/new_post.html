@@ -2,25 +2,29 @@
 
 {% block content %}  
   
-<h1>Add a Blog Entry</h1>
-    <form action="/newpost" method="POST">
+<h1>What's on your mind?</h1>
+<div class="d-flex justify-content-center align-items-center container ">
+    <div class="form-group" id="form-style">    
+<form action="/newpost" method="POST">
         <div>
             <label>
                 Blog Title:
             </label>
         </div>
-        <input type="text" name="blog_title" value="{{blog_title}}" />
+        <input class="form-control" type="text" name="blog_title" value="{{blog_title}}" />
         <p class="error">{{empty_title_error}}</p>
         <div>  
             <label>
                 Blog Text:
             </label>
         </div>
-        <textarea rows="4" cols="50" name="blog_text">{{blog_text}}</textarea>
+        <textarea rows="4" cols="50" class="form-control" name="blog_text">{{blog_text}}</textarea>
         <p class="error">{{empty_text_error}}</p>
         <div>
-            <input type="submit" value="Add Entry" name="blog_post" />
+            <button type="submit" class="btn btn-info">Blog It!</button>
         </div>
     </form>
+    </div>
+</div>
 
 {% endblock %}

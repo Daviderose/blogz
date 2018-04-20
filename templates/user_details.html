@@ -6,7 +6,7 @@
 
             {% for blog in user_blogs %}
             <h2><a href='/blog/{{user_blogs.page}}?id={{blog.id}}' >{{blog.title}}</a></h2>
-            <p>{{blog.body}}</p>
+            <h4>{{blog.body}}</h4>
             <p class="post_author" >Written by <a href='/blog/1?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
             <hr />
             {% endfor %}

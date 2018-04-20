@@ -47,7 +47,7 @@ def require_login():
 @app.route('/', methods=['GET'])
 def index():
 	users = User.query.order_by("username").paginate(per_page=20)
-	return render_template('index.html', users=users)
+	return render_template('index.html', title="Blog On By", users=users)
 
 @app.route('/blog/<int:page_num>', methods=['POST', 'GET'])
 def blog_list(page_num):
@@ -127,6 +127,7 @@ def signup():
 
 			if error_count > 0:
 				return redirect('/signup')
+				flash('Logged in', 'success')
 
 			is_verified = True
 			

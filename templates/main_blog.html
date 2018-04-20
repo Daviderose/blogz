@@ -2,14 +2,16 @@
 
 {% block content %}  
   
-<h1>Blogz</h1>
+<h1>All The Blogs</h1>
 
   
             {% for blog in blogs.items %}
+            <div class="container" id="blog-container">
             <h2><a href='/blog/{{blogs.page}}?id={{blog.id}}' >{{blog.title}}</a></h2>
-            <p>{{blog.body}}</p>
+            <h4>{{blog.body}}</h4>
             <p class="post_author" >Written by <a href='/blog/{{blogs.page}}?user={{blog.owner.id}}' >{{blog.owner.username}}</a> on {{blog.pub_date.month}}-{{blog.pub_date.day}}</p>
             <hr />
+            </div>
             {% endfor %}
 
             {% for page in blogs.iter_pages() %}

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}    
-<h1>Your Fellow Bloggers</h1>
+<h1>Whose Bloggin?</h1>
 
 {% for user in users.items %}
-<h2><a href='/blog/1?user={{user.id}}' >{{user.username}}</a></h2>
+<div class="container" id="bloggers">
+    <h2><a href='/blog/1?user={{user.id}}' >{{user.username}}</a></h2>
+</div>
 {% endfor %}
 
 {% endblock %}
